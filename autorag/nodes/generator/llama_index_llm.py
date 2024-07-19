@@ -25,7 +25,7 @@ def llama_index_llm(prompts: List[str], llm: LLMPredictorType, batch: int = 16) 
         The second element is a list of generated text's token ids, used tokenizer is GPT2Tokenizer.
         The third element is a list of generated text's pseudo log probs.
     """
-    tasks = [llm.acomplete(prompt) for prompt in prompts]
+    tasks = [llm.acomplete(prompt[:100]) for prompt in prompts]
     loop = asyncio.get_event_loop()
     results = loop.run_until_complete(process_batch(tasks, batch_size=batch))
 

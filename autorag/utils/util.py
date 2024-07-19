@@ -18,6 +18,7 @@ import unicodedata
 from llama_index.embeddings.openai import OpenAIEmbedding
 from pydantic import BaseModel as BM
 from pydantic.v1 import BaseModel
+from tqdm import tqdm
 
 logger = logging.getLogger("AutoRAG")
 
@@ -268,7 +269,7 @@ async def process_batch(tasks, batch_size: int = 64) -> List[Any]:
     """
     results = []
 
-    for i in range(0, len(tasks), batch_size):
+    for i in tqdm(range(0, len(tasks), batch_size)):
         batch = tasks[i:i + batch_size]
         batch_results = await asyncio.gather(*batch)
         results.extend(batch_results)
